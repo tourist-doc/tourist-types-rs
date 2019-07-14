@@ -22,17 +22,13 @@ impl RelativePathBuf {
     }
 
     pub fn as_git_path(&self) -> String {
-        self.0
-            .iter()
-            .map(|x| x.clone())
-            .collect::<Vec<_>>()
-            .join("/")
+        self.0.to_vec().join("/")
     }
 }
 
 impl From<&str> for RelativePathBuf {
     fn from(s: &str) -> Self {
-        RelativePathBuf::from_components(s.split("/").filter_map(|x| {
+        RelativePathBuf::from_components(s.split('/').filter_map(|x| {
             if x.is_empty() {
                 None
             } else {
